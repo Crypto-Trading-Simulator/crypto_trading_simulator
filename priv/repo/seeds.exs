@@ -10,19 +10,30 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-defmodule do
-  alias CryptoTradingSimulator.{User, Crypto}
-  alias CryptoTradingSimulator.Repo
+import Ecto.Query, warn: false
+import CryptoTradingSimulator.Repo
+
+defmodule Seed_data do
+  alias Plug.Crypto
+  alias CryptoTradingSimulator.User, as: User
+  alias CryptoTradingSimulator.Crypto, as: Crypto
+  alias CryptoTradingSimulator.Repo, as: Repo
 
   def seed do
     # Create some users
-    user1 = %User{name: "Alice", email: "alice@example.com"}
+    #user1 = %{name: "Alice", email: "alice@example.com"}
     user2 = %User{name: "Bob", email: "bob@example.com"}
-    Repo.insert_all([user1, user2], returning: [:id])
 
+    user = Repo.get User, 5
+
+    Repo.delete!(user)
+    #IO.puts("steve")
     # Create some cryptos for user1
-    crypto1 = %Crypto{coin: "Bitcoin", symbol: "BTC", amount: 1.0, invested: 1000.0, user_id: user1.id}
-    crypto2 = %Crypto{coin: "Ethereum", symbol: "ETH", amount: 2.0, invested: 2000.0, user_id: user1.id}
-    Repo.insert_all([crypto1, crypto2])
+    #crypto1 = %{coin: "Bitcoin", symbol: "BTC", amount: 1.0, invested: 1000.0, user_id: user1.id}
+    #crypto2 = %{coin: "Ethereum", symbol: "ETH", amount: 2.0, invested: 2000.0, user_id: user1.id}
+
   end
 end
+
+
+Seed_data.seed()

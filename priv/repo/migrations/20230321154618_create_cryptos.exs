@@ -4,9 +4,10 @@ defmodule CryptoTradingSimulator.Repo.Migrations.CreateCryptos do
   def change do
     create table(:cryptos) do
       add :coin, :string
-      add :symbol, :string
       add :amount, :float
       add :invested, :float
+      add :symbol, :string
+      add :user_id, :integer
 
       timestamps()
     end

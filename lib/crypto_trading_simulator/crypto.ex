@@ -3,12 +3,11 @@ defmodule CryptoTradingSimulator.Crypto do
   import Ecto.Changeset
 
   schema "cryptos" do
-    field :amount, :float
     field :coin, :string
+    field :amount, :float
     field :invested, :float
     field :symbol, :string
-
-    belongs_to :user, CryptoTradingSimulator.User
+    field :user_id, :integer
 
     timestamps()
   end
@@ -16,7 +15,7 @@ defmodule CryptoTradingSimulator.Crypto do
   @doc false
   def changeset(crypto, attrs) do
     crypto
-    |> cast(attrs, [:coin, :symbol, :amount, :invested])
-    |> validate_required([:coin, :symbol, :amount, :invested])
+    |> cast(attrs, [:coin, :amount, :invested, :symbol, :user_id])
+    |> validate_required([:coin, :amount, :invested, :symbol, :user_id])
   end
 end
