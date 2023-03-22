@@ -7,7 +7,6 @@ defmodule CryptoTradingSimulator.Repo.Migrations.CreateCryptos do
       add :amount, :float
       add :invested, :float
       add :symbol, :string
-      add :user_id, :integer
 
       timestamps()
     end
