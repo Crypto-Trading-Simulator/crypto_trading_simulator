@@ -1,4 +1,5 @@
 defmodule CryptoTradingSimulatorWeb.Router do
+  #alias CryptoTradingSimulatorWeb.PageLive
   use CryptoTradingSimulatorWeb, :router
 
   pipeline :browser do
@@ -17,7 +18,7 @@ defmodule CryptoTradingSimulatorWeb.Router do
   scope "/", CryptoTradingSimulatorWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", PageLive, :home
   end
 
   # Other scopes may use custom stacks.

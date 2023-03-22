@@ -10,16 +10,18 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
+import Ecto.Query
 
 defmodule Seed_data do
-  alias Plug.Crypto
   alias Plug.Crypto
   alias CryptoTradingSimulator.User, as: User
   alias CryptoTradingSimulator.Crypto, as: Crypto
   alias CryptoTradingSimulator.Repo, as: Repo
-  alias Ecto.Adapters.SQL
 
   def seed do
+    #empty Crypto seed table
+    Repo.delete_all(Crypto)
+
     #empty User seed table
     Repo.delete_all(User)
 
@@ -40,8 +42,8 @@ defmodule Seed_data do
     #Repo.insert!(%User{name: "Alice", email: "alice@example.com"})
     Repo.insert_all("users", seed_users)
 
-    #empty Crypto seed table
-    Repo.delete_all(Crypto)
+
+
 
     #Create some cryptos for user1
     seed_crypto = [
@@ -49,8 +51,12 @@ defmodule Seed_data do
       %{coin: "Ethereum", symbol: "ETH", amount: 2.0, invested: 2000.0, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()}
     ]
 
+
+
     Repo.insert_all("cryptos", seed_crypto)
 
+    #Repo.get(User)
+    #drop_if_exists table("users")
   end
 end
 

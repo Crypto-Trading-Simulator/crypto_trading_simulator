@@ -1,14 +1,14 @@
 defmodule CryptoTradingSimulator.Crypto do
   use Ecto.Schema
   import Ecto.Changeset
-
+  alias CryptoTradingSimulator.User
 
   schema "cryptos" do
     field :coin, :string
     field :amount, :float
     field :invested, :float
     field :symbol, :string
-    belongs_to :users, CryptoTradingSimulator.User
+    belongs_to :users, User
 
     timestamps()
   end
