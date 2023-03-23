@@ -42,21 +42,24 @@ defmodule Seed_data do
     #Repo.insert!(%User{name: "Alice", email: "alice@example.com"})
     Repo.insert_all("users", seed_users)
 
+    database_users = Repo.all(User)
 
+    Enum.each(database_users, fn user ->
+      seed_crypto_1 = [
+        %{coin: "Bitcoin", symbol: "BTC", amount: Enum.random(0..10), invested: Enum.random(0..10), user_id: user.id, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()},
+        %{coin: "Ethereum", symbol: "ETH", amount: Enum.random(0..100), invested: Enum.random(0..100), user_id: user.id, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()},
+        %{coin: "Litecoin", symbol: "LTC", amount: Enum.random(0..250), invested: Enum.random(0..250), user_id: user.id, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()},
+        %{coin: "Ripple", symbol: "XRP", amount: Enum.random(0..50), invested: Enum.random(0..50), user_id: user.id, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()},
+        %{coin: "Cardano", symbol: "ADA", amount: Enum.random(0..10000), invested: Enum.random(0..10000), user_id: user.id, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()},
+        %{coin: "Dogecoin", symbol: "DOGE", amount: Enum.random(0..10000000), invested: Enum.random(0..10000000), user_id: user.id, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()},
+        %{coin: "Polkadot", symbol: "DOT", amount: Enum.random(0..800), invested: Enum.random(0..800), user_id: user.id, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()},
+      ]
 
+      Repo.insert_all("cryptos", seed_crypto_1)
+    end)
 
-    #Create some cryptos for user1
-    seed_crypto = [
-      %{coin: "Bitcoin", symbol: "BTC", amount: 1.0, invested: 1000.0, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()},
-      %{coin: "Ethereum", symbol: "ETH", amount: 2.0, invested: 2000.0, inserted_at: DateTime.utc_now(), updated_at: DateTime.utc_now()}
-    ]
-
-
-
-    Repo.insert_all("cryptos", seed_crypto)
-
-    #Repo.get(User)
-    #drop_if_exists table("users")
+    #user = Repo.all(from u in User, inner_join: c in Crypto, on: u.id == c.user_id, select: %{name: u.name, user_id: u.id, crypto: c.id, coin: c.coin})
+    #IO.inspect(user)
   end
 end
 

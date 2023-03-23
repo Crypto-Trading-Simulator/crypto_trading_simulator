@@ -7,7 +7,7 @@ defmodule CryptoTradingSimulator.User do
     field :name, :string
     field :email, :string
 
-    has_many :cryptos, CryptoTradingSimulator.Crypto
+    has_many :crypto, CryptoTradingSimulator.Crypto
 
     timestamps()
   end

@@ -8,7 +8,7 @@ defmodule CryptoTradingSimulator.Crypto do
     field :amount, :float
     field :invested, :float
     field :symbol, :string
-    belongs_to :users, User
+    belongs_to :user, User
 
     timestamps()
   end
