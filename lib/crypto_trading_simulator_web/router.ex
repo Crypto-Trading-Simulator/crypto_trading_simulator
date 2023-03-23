@@ -17,7 +17,8 @@ defmodule CryptoTradingSimulatorWeb.Router do
   scope "/", CryptoTradingSimulatorWeb do
     pipe_through :browser
 
-    live "/", PageLive, :home
+    live "/signup", SignUpLive, :home
+    live "/login", LogInLive, :index
   end
 
   # Other scopes may use custom stacks.
