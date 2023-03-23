@@ -1,5 +1,4 @@
 defmodule CryptoTradingSimulatorWeb.Router do
-  #alias CryptoTradingSimulatorWeb.PageLive
   use CryptoTradingSimulatorWeb, :router
 
   pipeline :browser do

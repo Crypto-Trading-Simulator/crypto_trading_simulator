@@ -19,6 +19,12 @@ defmodule CryptoTradingSimulatorWeb do
 
   def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
 
+  def view do
+    quote do
+      import Phoenix.Component
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router, helpers: false
@@ -49,6 +55,7 @@ defmodule CryptoTradingSimulatorWeb do
     end
   end
 
+  @spec live_view :: {:__block__, [], [{:__block__, [], [...]} | {:use, [...], [...]}, ...]}
   def live_view do
     quote do
       use Phoenix.LiveView,
