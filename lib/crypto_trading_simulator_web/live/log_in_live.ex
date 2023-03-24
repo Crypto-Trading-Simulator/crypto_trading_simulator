@@ -4,7 +4,7 @@ defmodule CryptoTradingSimulatorWeb.LogInLive do
   require Logger
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, errormessage: "", form: to_form(%{}))}
+    {:ok, assign(socket, error_message: "", form: to_form(%{}))}
   end
 
   def render(assigns) do
@@ -15,9 +15,9 @@ defmodule CryptoTradingSimulatorWeb.LogInLive do
         <.input type="text" field={@form[:name]} />
         <h3>Email</h3>
         <.input type="email" field={@form[:email]} />
+        <.button type="submit">Log In</.button>
         <.button phx-click="sign_up_page">Don't have an account?</.button>
-        <.button type="submit">log_in</.button>
-        <%= @errormessage %>
+        <%= @error_message %>
     </.form>
 
     """
@@ -30,7 +30,7 @@ defmodule CryptoTradingSimulatorWeb.LogInLive do
     if exists do
       {:noreply, push_navigate(socket, to: ~p"/")}
     else
-      {:noreply, assign(socket, errormessage: "no such user exists")}
+      {:noreply, assign(socket, error_message: "no such user exists")}
     end
   end
 

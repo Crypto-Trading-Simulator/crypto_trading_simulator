@@ -10,8 +10,6 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-import Ecto.Query
-
 defmodule Seed_data do
   alias Plug.Crypto
   alias CryptoTradingSimulator.User, as: User

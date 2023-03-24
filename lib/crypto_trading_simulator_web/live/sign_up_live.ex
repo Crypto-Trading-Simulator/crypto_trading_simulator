@@ -4,7 +4,7 @@ defmodule CryptoTradingSimulatorWeb.SignUpLive do
   require Logger
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, form: to_form(%{}))}
+    {:ok, assign(socket, error_message: "", form: to_form(%{}))}
   end
 
   def render(assigns) do
@@ -15,16 +15,31 @@ defmodule CryptoTradingSimulatorWeb.SignUpLive do
         <.input type="text" field={@form[:name]} />
         <h3>Email</h3>
         <.input type="email" field={@form[:email]} />
+        <.button type="submit">Sign Up</.button>
         <.button phx-click="login_page">Already have an account?</.button>
-        <.button type="submit">sign_up</.button>
+        <%= @error_message %>
     </.form>
 
     """
   end
 
   def handle_event("sign_up", %{"email" => email, "name" => name}, socket) do
-    Repo.insert(%User{name: name, email: email})
-    {:noreply, push_navigate(socket, to: ~p"/login")}
+    exists = Repo.get_by(User, [name: name, email: email])
+
+    if exists do
+      {:noreply, assign(socket, error_message: "User already has an account")}
+    else
+      changeset = User.changeset(%User{}, %{name: name, email: email})
+      case Repo.insert(changeset) do
+        {:ok, user} -> assign_and_redirect(socket, user)
+        {:error, _changeset} -> {:noreply, assign(socket, error_message: "Invalid Fields")}
+      end
+    end
+  end
+
+  def assign_and_redirect(socket, user) do
+      assign(socket, user: user)
+      {:noreply, push_navigate(socket, to: ~p"/#{user.id}")}
   end
 
   def handle_event("login_page", _params, socket) do
