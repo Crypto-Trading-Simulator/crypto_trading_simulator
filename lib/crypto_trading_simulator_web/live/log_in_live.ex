@@ -4,7 +4,7 @@ defmodule CryptoTradingSimulatorWeb.LogInLive do
   require Logger
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, form: to_form(%{}))}
+    {:ok, assign(socket, errormessage: "", form: to_form(%{}))}
   end
 
   def render(assigns) do
@@ -17,27 +17,24 @@ defmodule CryptoTradingSimulatorWeb.LogInLive do
         <.input type="email" field={@form[:email]} />
         <.button phx-click="sign_up_page">Don't have an account?</.button>
         <.button type="submit">log_in</.button>
+        <%= @errormessage %>
     </.form>
 
     """
   end
 
 
-  # def handle_event("login", %{"email" => "", "name" => ""}, socket) do
-  #   IO.inspect("LOOK HERE!", params.email, params.name)
-  #   # IO.puts("Email: #{email}, Name: #{name}")
-  #   {:noreply, socket}
-  # end
-
   def handle_event("log_in", %{"email" => email, "name" => name}, socket) do
-    # user = Repo.one!(from u in User, where: u.name == ^name and u.email == ^email)
-    Repo.get_by(email: email ) |> Logger.info(Repo.exists?())
+    exists = Repo.get_by(User, [name: name, email: email])
 
-
-    {:noreply, socket}
+    if exists do
+      {:noreply, push_navigate(socket, to: ~p"/")}
+    else
+      {:noreply, assign(socket, errormessage: "no such user exists")}
+    end
   end
 
   def handle_event("sign_up_page", _params, socket) do
-    {:noreply, socket}
+    {:noreply, push_navigate(socket, to: ~p"/signup")}
   end
 end

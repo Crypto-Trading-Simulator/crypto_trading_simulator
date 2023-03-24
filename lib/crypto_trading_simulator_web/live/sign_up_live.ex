@@ -22,21 +22,12 @@ defmodule CryptoTradingSimulatorWeb.SignUpLive do
     """
   end
 
-
-
-
-  # def handle_event("login", %{"email" => "", "name" => ""}, socket) do
-  #   IO.inspect("LOOK HERE!", params.email, params.name)
-  #   # IO.puts("Email: #{email}, Name: #{name}")
-  #   {:noreply, socket}
-  # end
-
   def handle_event("sign_up", %{"email" => email, "name" => name}, socket) do
     Repo.insert(%User{name: name, email: email})
-    {:noreply, socket}
+    {:noreply, push_navigate(socket, to: ~p"/login")}
   end
 
   def handle_event("login_page", _params, socket) do
-    {:noreply, socket}
+    {:noreply, push_navigate(socket, to: ~p"/login")}
   end
 end
