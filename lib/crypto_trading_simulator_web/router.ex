@@ -18,9 +18,11 @@ defmodule CryptoTradingSimulatorWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    get "/:id", HomePageController, :show
     live "/signup", SignUpLive, :index
     live "/login", LogInLive, :index
+     get "/home", HomePageController, :index
+    get "/:id", HomePageController, :show
+
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,32 @@
+<section>
+  <h1>User Details</h1>
+
+<div>
+  <p>Name: <%= @user.name %></p>
+  <p>Email: <%= @user.email %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Coin</th>
+      <th>Amount</th>
+      <th>Invested</th>
+      <th>Symbol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for crypto <- @user.cryptos do %>
+      <tr>
+        <td><%= crypto.coin %></td>
+        <td><%= crypto.amount %></td>
+        <td><%= crypto.invested %></td>
+        <td><%= crypto.symbol %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+  <!-- Add more user fields as needed -->
+</div>
+
+</section>

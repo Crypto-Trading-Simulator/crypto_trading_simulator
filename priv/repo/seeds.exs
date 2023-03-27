@@ -56,8 +56,8 @@ defmodule Seed_data do
       Repo.insert_all("cryptos", seed_crypto_1)
     end)
 
-    #user = Repo.all(from u in User, inner_join: c in Crypto, on: u.id == c.user_id, select: %{name: u.name, user_id: u.id, crypto: c.id, coin: c.coin})
-    #IO.inspect(user)
+    # user = Repo.all(from u in User, inner_join: c in Crypto, on: u.id == c.user_id, select: %{name: u.name, user_id: u.id, crypto: c.id, coin: c.coin})
+    # IO.inspect(user)
   end
 end
 
