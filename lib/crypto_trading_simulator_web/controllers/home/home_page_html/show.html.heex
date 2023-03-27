@@ -1,0 +1,28 @@
+<section>
+
+  <h1>Top Cryptocurrencies by Total Volume</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Symbol</th>
+        <th>Price (GBP)</th>
+        <th>Total Volume (24h)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for {coin, index} <- Enum.with_index(@data["Data"]) do %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= coin["CoinInfo"]["FullName"] %></td>
+          <td><%= coin["CoinInfo"]["Name"] %></td>
+          <td><%= coin["DISPLAY"]["GBP"]["PRICE"] %></td>
+          <td><%= coin["DISPLAY"]["GBP"]["TOTALVOLUME24HTO"] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</section>

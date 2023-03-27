@@ -1,4 +1,4 @@
-defmodule CryptoTradingSimulatorWeb.HomePageController do
+defmodule CryptoTradingSimulatorWeb.PortfolioPageController do
   use CryptoTradingSimulatorWeb, :controller
   alias CryptoTradingSimulator.{Repo, User, Crypto}
   require Logger
@@ -14,7 +14,8 @@ defmodule CryptoTradingSimulatorWeb.HomePageController do
 
   def show(conn, %{"id" => id}) do
     user = Repo.get(User, id)|> Repo.preload(:cryptos)
-    render(conn, :show, user: user)
-  end
+    IO.inspect(user.cryptos |> Enum.map(&(&1.coin)))
 
+    render(conn, "show.html", user: user)
+  end
 end

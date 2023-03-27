@@ -1,0 +1,21 @@
+<h1>Cryptocurrency Information</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Symbol</th>
+      <th>Price (GBP)</th>
+      <th>Total Volume (24h, GBP)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for coin <- @data do %>
+      <tr>
+        <td><%= coin["CoinInfo"]["FullName"] %></td>
+        <td><%= coin["CoinInfo"]["Name"] %></td>
+        <td><%= coin["DISPLAY"]["GBP"]["PRICE"] %></td>
+        <td><%= coin["DISPLAY"]["GBP"]["TOTALVOLUME24HTO"] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

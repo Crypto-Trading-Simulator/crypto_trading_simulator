@@ -31,15 +31,10 @@ defmodule CryptoTradingSimulatorWeb.SignUpLive do
     else
       changeset = User.changeset(%User{}, %{name: name, email: email})
       case Repo.insert(changeset) do
-        {:ok, user} -> assign_and_redirect(socket, user)
+        {:ok, exists} -> {:noreply, push_navigate(socket, to: ~p"/#{exists.id}")}
         {:error, _changeset} -> {:noreply, assign(socket, error_message: "Invalid Fields")}
       end
     end
-  end
-
-  def assign_and_redirect(socket, user) do
-      assign(socket, user: user)
-      {:noreply, push_navigate(socket, to: ~p"/#{user.id}")}
   end
 
   def handle_event("login_page", _params, socket) do
