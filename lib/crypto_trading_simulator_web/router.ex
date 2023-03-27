@@ -20,6 +20,8 @@ defmodule CryptoTradingSimulatorWeb.Router do
     get "/", PageController, :home
     live "/signup", SignUpLive, :index
     live "/login", LogInLive, :index
+    live "/buy/:id/:symbol", BuyLive, :index
+    live "/sell/:id/:symbol", SellLive, :index
     get "transaction/:id/:symbol", TransactionPageController, :show
     get "/home/:id", HomePageController, :show
     get "/home/:id/coinview/:symbol", CoinViewPageController, :show
