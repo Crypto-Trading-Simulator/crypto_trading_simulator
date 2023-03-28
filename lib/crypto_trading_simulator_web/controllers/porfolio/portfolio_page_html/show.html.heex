@@ -20,7 +20,7 @@
     <%= for crypto <- @user.cryptos do %>
       <tr>
         <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.coin %></a></td>
-        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.amount %></a></td>
+        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= Float.round(crypto.amount, 8)%></a></td>
         <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.invested %></a></td>
         <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.symbol %></a></td>
       </tr>
