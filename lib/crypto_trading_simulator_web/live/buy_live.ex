@@ -9,6 +9,7 @@ defmodule CryptoTradingSimulatorWeb.BuyLive do
 
   def render(assigns) do
     ~H"""
+    <.button phx-click="back">Back</.button>
     <%= @symbol %>
     <.form for={@form} phx-submit="buy" >
         <h3>Amount in GBP</h3>
@@ -65,9 +66,14 @@ defmodule CryptoTradingSimulatorWeb.BuyLive do
       )
       {:noreply, assign(socket, error_message: "Successfully Bought")}
     end
+    {:noreply, push_navigate(socket, to: ~s"/portfolio/#{socket.assigns.id}/")}
   end
 
   def handle_event("sell_page", _params, socket) do
     {:noreply, push_navigate(socket, to: ~s"/sell/#{socket.assigns.id}/#{socket.assigns.symbol}")}
+  end
+
+  def handle_event("back", _params, socket) do
+    {:noreply, push_navigate(socket, to: ~s"/home/#{socket.assigns.id}/coinview/#{socket.assigns.symbol}")}
   end
 end

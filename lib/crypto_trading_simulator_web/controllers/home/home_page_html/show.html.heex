@@ -14,13 +14,16 @@
     </thead>
     <tbody>
       <%= for {coin, index} <- Enum.with_index(@data["Data"]) do %>
-        <tr>
-          <td><%= index + 1 %></td>
-          <td><%= coin["CoinInfo"]["FullName"] %></td>
-          <td><%= coin["CoinInfo"]["Name"] %></td>
-          <td><%= coin["DISPLAY"]["GBP"]["PRICE"] %></td>
-          <td><%= coin["DISPLAY"]["GBP"]["TOTALVOLUME24HTO"] %></td>
-        </tr>
+
+          <tr>
+            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= index + 1 %></a></td>
+            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["CoinInfo"]["FullName"] %></a></td>
+            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["CoinInfo"]["Name"] %></a></td>
+            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["DISPLAY"]["GBP"]["PRICE"] %></a></td>
+            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["DISPLAY"]["GBP"]["TOTALVOLUME24HTO"] %></a></td>
+
+         </tr>
+
       <% end %>
     </tbody>
   </table>

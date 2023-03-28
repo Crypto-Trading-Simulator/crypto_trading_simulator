@@ -1,11 +1,8 @@
 defmodule CryptoTradingSimulatorWeb.CoinViewPageController do
   use CryptoTradingSimulatorWeb, :controller
-  alias CryptoTradingSimulator.{Repo, User, Crypto}
-  alias CryptoTradingSimulator.Router.Helpers, as: Routes
   require Logger
   require HTTPoison
   require Poison
-  import Phoenix.HTML
 
   # def index(conn, _params) do
   #   render(conn, :index)
@@ -18,10 +15,31 @@ defmodule CryptoTradingSimulatorWeb.CoinViewPageController do
 
 
   def show(conn, %{"symbol" => symbol, "id" => id}) do
-    response = HTTPoison.get!("https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=GBP")
+    response = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=#{symbol}&tsyms=GBP")
     data = Poison.decode!(response.body)
-    filtered_data = Enum.filter(data["Data"], fn x -> x["CoinInfo"]["Name"] == symbol end)
-    render(conn, "show.html", data: filtered_data, user_id: id, html: Phoenix.HTML, routes: CryptoTradingSimulatorWeb.Router.Helpers)
+    # IO.inspect(data)
+
+    full_name_response = HTTPoison.get!("https://min-api.cryptocompare.com/data/all/coinlist")
+    full_name_data = Poison.decode!(full_name_response.body)
+    full_data = full_name_data["Data"][symbol]
+    full_name = full_data["FullName"]
+    image_url = "https://www.cryptocompare.com/#{full_data["ImageUrl"]}"
+    description = full_data["Description"]
+
+    buy_url = "/buy/#{id}/#{symbol}"
+    sell_url = "/sell/#{id}/#{symbol}"
+    back_url = "/home/#{id}"
+
+    render(conn, "show.html",
+      back_url: back_url,
+      buy_url: buy_url,
+      sell_url: sell_url,
+      description: description,
+      image_url: image_url,
+      full_name: full_name,
+      data: data,
+      user_id: id
+    )
   end
 
 end

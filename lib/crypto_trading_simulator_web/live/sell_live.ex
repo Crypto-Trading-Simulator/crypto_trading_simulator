@@ -9,8 +9,10 @@ defmodule CryptoTradingSimulatorWeb.SellLive do
 
   def render(assigns) do
     ~H"""
-    <%= @symbol %>
+    <.button phx-click="back">Back</.button>
+
     <.form for={@form} phx-submit="sell" >
+        <%= @symbol %>
         <h3>Amount in GBP</h3>
         <.input type="text" field={@form[:amount]} />
         <.button type="submit">Sell</.button>
@@ -60,10 +62,16 @@ defmodule CryptoTradingSimulatorWeb.SellLive do
       true ->
         {:noreply, assign(socket, error_message: "Insufficient Funds")}
     end
+
+    {:noreply, push_navigate(socket, to: ~s"/portfolio/#{socket.assigns.id}/")}
   end
 
   def handle_event("buy_page", _params, socket) do
     {:noreply, push_navigate(socket, to: ~s"/buy/#{socket.assigns.id}/#{socket.assigns.symbol}")}
+  end
+
+  def handle_event("back", _params, socket) do
+    {:noreply, push_navigate(socket, to: ~s"/home/#{socket.assigns.id}/coinview/#{socket.assigns.symbol}")}
   end
 
 end

@@ -1,21 +1,28 @@
 <h1>Cryptocurrency Information</h1>
+<a href= {@buy_url}><.button>Buy</.button></a>
+<a href= {@sell_url}><.button>Sell</.button></a>
+<a href= {@back_url}><.button>Back</.button></a>
 <table>
   <thead>
     <tr>
-      <th>Full Name</th>
-      <th>Symbol</th>
+      <th></th>
+      <th>Coin</th>
       <th>Price (GBP)</th>
       <th>Total Volume (24h, GBP)</th>
     </tr>
   </thead>
   <tbody>
-    <%= for coin <- @data do %>
+    <%= for {coin_symbol, _coin_data} <- @data["RAW"] do %>
       <tr>
-        <td><%= coin["CoinInfo"]["FullName"] %></td>
-        <td><%= coin["CoinInfo"]["Name"] %></td>
-        <td><%= coin["DISPLAY"]["GBP"]["PRICE"] %></td>
-        <td><%= coin["DISPLAY"]["GBP"]["TOTALVOLUME24HTO"] %></td>
+        <td><img src= {@image_url} alt={@full_name} style="width: 30px; height: 30px;"></td>
+        <td><%= @full_name %></td>
+        <td><%= @data["DISPLAY"][coin_symbol]["GBP"]["PRICE"] %></td>
+        <td><%= @data["DISPLAY"][coin_symbol]["GBP"]["TOTALVOLUME24HTO"] %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<p>
+  <%= @description %>
+</p>
