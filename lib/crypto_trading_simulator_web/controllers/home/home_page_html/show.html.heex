@@ -1,10 +1,12 @@
 <section>
-
+<a href= {"/login"}><.button>Log Out</.button></a>
+<a href= {"/portfolio/#{@user_id}"}><.button>View Portfolio</.button></a>
   <h1>Top Cryptocurrencies by Total Volume</h1>
 
   <table>
     <thead>
       <tr>
+        <th></th>
         <th>Rank</th>
         <th>Name</th>
         <th>Symbol</th>
@@ -16,6 +18,7 @@
       <%= for {coin, index} <- Enum.with_index(@data["Data"]) do %>
 
           <tr>
+            <td><img/></td>
             <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= index + 1 %></a></td>
             <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["CoinInfo"]["FullName"] %></a></td>
             <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["CoinInfo"]["Name"] %></a></td>

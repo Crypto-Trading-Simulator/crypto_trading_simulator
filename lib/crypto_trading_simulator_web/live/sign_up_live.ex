@@ -31,7 +31,7 @@ defmodule CryptoTradingSimulatorWeb.SignUpLive do
     else
       changeset = User.changeset(%User{}, %{name: name, email: email})
       case Repo.insert(changeset) do
-        {:ok, exists} -> {:noreply, push_navigate(socket, to: ~p"/#{exists.id}")}
+        {:ok, exists} -> {:noreply, push_navigate(socket, to: ~p"/home/#{exists.id}")}
         {:error, _changeset} -> {:noreply, assign(socket, error_message: "Invalid Fields")}
       end
     end

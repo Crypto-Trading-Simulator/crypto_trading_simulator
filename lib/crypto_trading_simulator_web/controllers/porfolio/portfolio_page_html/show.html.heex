@@ -1,5 +1,7 @@
 <section>
-  <h1>User Details</h1>
+<a href= {"/home/#{@user.id}"}><.button>Home</.button></a>
+
+<h1>User Details</h1>
 
 <div>
   <p>Name: <%= @user.name %></p>
@@ -17,10 +19,10 @@
   <tbody>
     <%= for crypto <- @user.cryptos do %>
       <tr>
-        <td><%= crypto.coin %></td>
-        <td><%= crypto.amount %></td>
-        <td><%= crypto.invested %></td>
-        <td><%= crypto.symbol %></td>
+        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.coin %></a></td>
+        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.amount %></a></td>
+        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.invested %></a></td>
+        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.symbol %></a></td>
       </tr>
     <% end %>
   </tbody>

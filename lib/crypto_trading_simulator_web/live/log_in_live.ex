@@ -28,7 +28,7 @@ defmodule CryptoTradingSimulatorWeb.LogInLive do
   exists = Repo.get_by(User, [name: name, email: email])
   IO.inspect(exists.id)
     if exists do
-      {:noreply, push_navigate(socket, to: "/#{exists.id}")}
+      {:noreply, push_navigate(socket, to: "/home/#{exists.id}")}
     else
       {:noreply, assign(socket, error_message: "no such user exists")}
     end
