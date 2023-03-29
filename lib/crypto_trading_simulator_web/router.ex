@@ -26,6 +26,7 @@ defmodule CryptoTradingSimulatorWeb.Router do
     get "/home/:id", HomePageController, :show
     get "/home/:id/coinview/:symbol", CoinViewPageController, :show
     get "/portfolio/:id", PortfolioPageController, :show
+    get "/reset/:id", ResetController, :reset
 
   end
 

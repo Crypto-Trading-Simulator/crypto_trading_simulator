@@ -1,6 +1,6 @@
 defmodule CryptoTradingSimulatorWeb.SignUpLive do
   use CryptoTradingSimulatorWeb, :live_view
-  alias CryptoTradingSimulator.{Repo, User}
+  alias CryptoTradingSimulator.{Repo, Crypto, User}
   require Logger
 
   def mount(_params, _session, socket) do
@@ -31,9 +31,14 @@ defmodule CryptoTradingSimulatorWeb.SignUpLive do
     else
       changeset = User.changeset(%User{}, %{name: name, email: email})
       case Repo.insert(changeset) do
-        {:ok, exists} -> {:noreply, push_navigate(socket, to: ~p"/home/#{exists.id}")}
+        {:ok, exists}
+          -> user = Repo.get_by(User, [name: name, email: email])
+              Repo.insert!(%Crypto{coin: "Pounds", symbol: "GBP", amount: 1000.00, user_id: user.id})
+              {:noreply, push_navigate(socket, to: ~p"/home/#{exists.id}")}
         {:error, _changeset} -> {:noreply, assign(socket, error_message: "Invalid Fields")}
       end
+
+
     end
   end
 

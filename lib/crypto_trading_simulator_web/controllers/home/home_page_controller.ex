@@ -7,20 +7,18 @@ defmodule CryptoTradingSimulatorWeb.HomePageController do
   require Poison
   import Phoenix.HTML
 
-  # def index(conn, _params) do
-  #   render(conn, :index)
-  # end
-
-  # def show(conn, %{"id" => id}) do
-  #   user = Repo.get(User, id)
-  #   render(conn, "show.html", user: user)
-  # end
 
 
   def show(conn, %{"id" => id}) do
+    response = HTTPoison.get!("https://min-api.cryptocompare.com/data/v2/news/?lang=EN")
+    news_data = Poison.decode!(response.body)["Data"]
     response = HTTPoison.get!("https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=GBP")
     data = Poison.decode!(response.body)
-    render(conn, "show.html", data: data, user_id: id, html: Phoenix.HTML, routes: CryptoTradingSimulatorWeb.Router.Helpers)
+    render(conn, "show.html",
+      data: data,
+      news_data: news_data,
+      user_id: id,
+    )
   end
 
 end

@@ -6,7 +6,6 @@ defmodule CryptoTradingSimulator.Crypto do
   schema "cryptos" do
     field :coin, :string
     field :amount, :float
-    field :invested, :float
     field :symbol, :string
     belongs_to :user, User
 
@@ -16,7 +15,7 @@ defmodule CryptoTradingSimulator.Crypto do
   @doc false
   def changeset(crypto, attrs) do
     crypto
-    |> cast(attrs, [:coin, :amount, :invested, :symbol])
-    |> validate_required([:coin, :amount, :invested, :symbol])
+    |> cast(attrs, [:coin, :amount, :symbol])
+    |> validate_required([:coin, :amount, :symbol])
   end
 end

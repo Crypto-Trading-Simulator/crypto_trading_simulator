@@ -15,7 +15,7 @@ defmodule CryptoTradingSimulatorWeb.LogInLive do
         <.input type="text" field={@form[:name]} />
         <h3>Email</h3>
         <.input type="email" field={@form[:email]} />
-        <.button type="submit">log_in</.button>
+        <.button type="submit">Log In</.button>
         <.button phx-click="sign_up_page">Don't have an account?</.button>
         <%= @errormessage %>
     </.form>

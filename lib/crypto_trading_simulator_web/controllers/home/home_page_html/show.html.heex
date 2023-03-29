@@ -1,4 +1,21 @@
 <section>
+<form id="search-form" action={"/home/#{@user_id}/coinview/"} method="get">
+  <input id="search-input" type="text" placeholder="Enter crypto symbol">
+  <button type="submit">Search</button>
+</form>
+
+<script>
+  const form = document.getElementById('search-form');
+  const input = document.getElementById('search-input');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const symbol = input.value.toUpperCase();
+    const userId = window.location.pathname.split('/')[2]
+    form.action = `/home/${userId}/coinview/${symbol}`;
+    form.submit();
+  });
+</script>
 <a href= {"/login"}><.button>Log Out</.button></a>
 <a href= {"/portfolio/#{@user_id}"}><.button>View Portfolio</.button></a>
   <h1>Top Cryptocurrencies by Total Volume</h1>
@@ -31,4 +48,20 @@
     </tbody>
   </table>
 
+</section>
+
+
+<section class="News">
+  <%= for news_item <- Enum.take(@news_data, 5) do %>
+  <a href= {news_item["url"]}><div style="border-width: 1px; border-color: #505050; margin: 5% 0;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+
+      <h2 style="max-width: 80%;"><strong><%= news_item["title"] %></strong></h2>
+      <img src={news_item["source_info"]["img"]}  style="max-width: 20%; height: 25px;"/>
+    </div>
+    <h2 style="color: #505050;"><small>#<%= news_item["tags"] %></small></h2>
+    <img src={news_item["imageurl"]}  style="width: 80px; height: 80px;"/>
+    <p><%= news_item["body"] %></p>
+  </div></a>
+<% end %>
 </section>

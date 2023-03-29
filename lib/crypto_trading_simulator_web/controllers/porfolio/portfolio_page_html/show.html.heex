@@ -6,13 +6,12 @@
 <div>
   <p>Name: <%= @user.name %></p>
   <p>Email: <%= @user.email %></p>
-
+  <p>Total Portfolio Value: £<%= :erlang.float_to_binary(@total_portfolio_value, [decimals: 2]) %></p>
 <table>
   <thead>
     <tr>
       <th>Coin</th>
       <th>Amount</th>
-      <th>Invested</th>
       <th>Symbol</th>
     </tr>
   </thead>
@@ -20,15 +19,18 @@
     <%= for crypto <- @user.cryptos do %>
       <tr>
         <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.coin %></a></td>
-        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= Float.round(crypto.amount, 8)%></a></td>
-        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.invested %></a></td>
+        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= if crypto.symbol == "GBP" do :erlang.float_to_binary(crypto.amount, [decimals: 2]) else :erlang.float_to_binary(crypto.amount, [decimals: 8]) end%></a></td>
         <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.symbol %></a></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-  <!-- Add more user fields as needed -->
+
 </div>
 
+</section>
+
+<section>
+  <a href= {"/reset/#{@user.id}"}><.button>Reset</.button></a>
 </section>
