@@ -28,21 +28,46 @@ defmodule CryptoTradingSimulatorWeb.SellLive do
 
   def render(assigns) do
     ~H"""
-    <.button phx-click="back">Back</.button>
+    <div class="flex items-start justify-center space-x-5">
+      <.button  class="
+      bg-blue-500
+      hover:bg-blue-700
+      text-white font-bold
+      py-2 px-4
+      rounded-full"
+      phx-click="back">Back </.button>
 
-    <.form for={@form} phx-submit="sell" >
-        <%= "Wallet:" %> <br>
-        <%= "#{@wallet} #{@symbol} (#{@wallet * @crypto_price} GBP)" %> <br>
-        <%= " £#{@pound_wallet}" %> <br>
-        <%= "Conversion Rate:" %> <br>
-        <%= "1 #{@symbol} = #{@crypto_price} GBP" %>
-        <h3>Enter Amount to Sell in GBP</h3>
-        <.input type="text" field={@form[:amount]} />
-        <.button type="submit">Sell</.button>
-        <.button phx-click="buy_page">Buy Page</.button>
-        <%= @error_message %>
-    </.form>
+      <.form class="flex flex-col space-y-5 my-9" for={@form} phx-submit="sell" >
+        <div>
+          <h2> Wallet: </h2>
+            <p> <%= "#{:erlang.float_to_binary(@wallet, [decimals: 8])} #{@symbol} (#{:erlang.float_to_binary((@wallet * @crypto_price), [decimals: 2])} GBP)" %> </p>
+            <p> <%= " £#{:erlang.float_to_binary(@pound_wallet, [decimals: 2])}" %> </p>
+        </div>
+        <div>
+          <h2> Conversion Rate: </h2>
+            <p><%= "1 #{@symbol} = #{@crypto_price} GBP" %></p>
+        </div>
+        <div class="flex flex-col">
+          <h3>Enter Amount to Sell in GBP</h3>
+            <.input style="margin: 0 0 2% 0;" type="text" field={@form[:amount]} />
+            <.button style="margin: 2%;" class="bg-blue-500
+            hover:bg-blue-700 text-white
+            font-bold py-2 px-4
+              rounded-full"type="submit"
+              >Sell</.button>
 
+
+            <.button style="margin:2%;" phx-click="buy_page"
+            class="bg-gray-400
+            hover:bg-gray-600
+              text-white font-bold
+              py-2 px-4
+              rounded-full mr-2"
+            >Buy Page</.button>
+            <p class="flex justify-center text-red-700" ><%= @error_message %></p>
+        </div>
+      </.form>
+    </div>
     """
   end
 

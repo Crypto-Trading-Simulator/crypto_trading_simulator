@@ -5,7 +5,6 @@ defmodule CryptoTradingSimulatorWeb.HomePageController do
   require Logger
   require HTTPoison
   require Poison
-  import Phoenix.HTML
 
 
 
@@ -14,7 +13,13 @@ defmodule CryptoTradingSimulatorWeb.HomePageController do
     news_data = Poison.decode!(response.body)["Data"]
     response = HTTPoison.get!("https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=GBP")
     data = Poison.decode!(response.body)
+
+    img_url_fetch = HTTPoison.get!("https://min-api.cryptocompare.com/data/all/coinlist")
+    img_url_data = Poison.decode!(img_url_fetch.body)
+    full_img_data = img_url_data["Data"]
+
     render(conn, "show.html",
+      full_img_data: full_img_data,
       data: data,
       news_data: news_data,
       user_id: id,

@@ -3,3 +3,6 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+.mx-auto max-w-2xl{
+width:100%;
+}

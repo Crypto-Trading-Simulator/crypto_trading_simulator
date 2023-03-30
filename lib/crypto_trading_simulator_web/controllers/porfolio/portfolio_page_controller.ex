@@ -2,6 +2,7 @@ defmodule CryptoTradingSimulatorWeb.PortfolioPageController do
   use CryptoTradingSimulatorWeb, :controller
   alias CryptoTradingSimulator.{Repo, User, Crypto}
   require Logger
+  import Ecto.Query
 
   def show(conn, %{"id" => id}) do
     user = Repo.get(User, id)|> Repo.preload(:cryptos)
@@ -14,7 +15,13 @@ defmodule CryptoTradingSimulatorWeb.PortfolioPageController do
       crypto_price * y
     end)
     |> Enum.reduce(0, fn x, acc -> x + acc end)
+
+    img_url_fetch = HTTPoison.get!("https://min-api.cryptocompare.com/data/all/coinlist")
+    img_url_data = Poison.decode!(img_url_fetch.body)
+    full_img_data = img_url_data["Data"]
+
     render(conn, "show.html",
+      full_img_data: full_img_data,
       user: user,
       user_coin: user_symbols,
       total_portfolio_value: total_portfolio_value

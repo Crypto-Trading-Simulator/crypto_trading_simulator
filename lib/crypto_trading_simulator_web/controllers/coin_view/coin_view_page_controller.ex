@@ -3,6 +3,7 @@ defmodule CryptoTradingSimulatorWeb.CoinViewPageController do
   require Logger
   require HTTPoison
   require Poison
+  import Ecto.Query
 
   # def index(conn, _params) do
   #   render(conn, :index)
@@ -30,7 +31,15 @@ defmodule CryptoTradingSimulatorWeb.CoinViewPageController do
     sell_url = "/sell/#{id}/#{symbol}"
     back_url = "/home/#{id}"
 
+    response = HTTPoison.get!("https://min-api.cryptocompare.com/data/v2/news/?lang=EN")
+    news_data = Poison.decode!(response.body)["Data"]
+    coin_news = Enum.filter(news_data, fn x ->
+      categories = String.split(x["categories"], "|")
+      Enum.any?(categories, &(&1 == symbol))
+    end)
+
     render(conn, "show.html",
+      coin_news: coin_news,
       back_url: back_url,
       buy_url: buy_url,
       sell_url: sell_url,

@@ -1,29 +1,79 @@
-<h1>Cryptocurrency Information</h1>
-<a href= {@back_url}><.button>Home</.button></a>
-<a href= {@buy_url}><.button>Buy</.button></a>
-<a href= {@sell_url}><.button>Sell</.button></a>
+<section>
+  <div class="flex justify-between">
+    <a href= {@back_url}><.button
+      class="
+        bg-blue-500
+        hover:bg-blue-700
+        text-white font-bold
+        py-2 px-4
+        rounded-full
+        ml-2"
+    >Home</.button></a>
+    <a href= {"/portfolio/#{@user_id}"}><.button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+    >View Portfolio</.button></a>
+  </div>
+  <div class="flex justify-end my-5 space-x-5 ">
+    <a href= {@buy_url}><.button class="
+      bg-green-600
+      hover:bg-blue-700
+      hover:bg-blue-500
+      hover:text-white
+      py-2 px-4
+      rounded-full
+      ml-2
+      w-full"
+    >Buy</.button></a>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Coin</th>
-      <th>Price (GBP)</th>
-      <th>Total Volume (24h, GBP)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for {coin_symbol, _coin_data} <- @data["RAW"] do %>
+    <a href= {@sell_url}><.button
+    class="
+      bg-red-600
+      hover:bg-blue-700
+      hover:bg-blue-500
+      hover:text-white
+      py-2 px-4
+      rounded-full
+      ml-2
+      w-full"
+    >Sell</.button></a>
+  </div>
+
+  <table class="w-full border-collapse border border-gray-400 my-10">
+    <thead class="bg-blue-500">
       <tr>
-        <td><img src= {@image_url} alt={@full_name} style="width: 30px; height: 30px;"></td>
-        <td><%= @full_name %></td>
-        <td><%= @data["DISPLAY"][coin_symbol]["GBP"]["PRICE"] %></td>
-        <td><%= @data["DISPLAY"][coin_symbol]["GBP"]["TOTALVOLUME24HTO"] %></td>
+        <th class="px-4 py-2 text-left text-white">Coin</th>
+        <th class="px-4 py-2 text-left text-white">Price (GBP)</th>
+        <th class="px-4 py-2 text-left text-white">Total Volume (24h, GBP)</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <%= for {coin_symbol, _coin_data} <- @data["RAW"] do %>
+        <tr>
+          <td class="flex flex-row"><img style="width:24px; length:24px;" src= {@image_url} alt={@full_name} >
+          <%= @full_name %></td>
+          <td class="px-4 py-2"><%= @data["DISPLAY"][coin_symbol]["GBP"]["PRICE"] %></td>
+          <td class="px-4 py-2"><%= @data["DISPLAY"][coin_symbol]["GBP"]["TOTALVOLUME24HTO"] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<p>
-  <%= @description %>
-</p>
+  <p>
+    <%= @description %>
+  </p>
+</section>
+
+<section class="">
+  <%= for news_item <- Enum.take(@coin_news, 5) do %>
+  <a href= {news_item["url"]}>
+  <div class="border-2 border-gray-500 p-10 my-10 mx-0 rounded-lg">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+
+      <h2 style="max-width: 80%;"><strong><%= news_item["title"] %></strong></h2>
+      <img src={news_item["source_info"]["img"]}  style="max-width: 20%; height: 25px;"/>
+    </div>
+    <h2 class="text-gray-500 dark:text-gray-300"><small>#<%= news_item["tags"] %></small></h2>
+    <img src={news_item["imageurl"]}  style="width: 80px; height: 80px;"/>
+    <p><%= news_item["body"] %></p>
+  </div></a>
+<% end %>
+</section>

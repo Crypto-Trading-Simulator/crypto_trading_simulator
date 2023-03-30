@@ -1,26 +1,36 @@
 <section>
-<a href= {"/home/#{@user.id}"}><.button>Home</.button></a>
+<a href= {"/home/#{@user.id}"}><.button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-2">Home</.button></a>
 
-<h1>User Details</h1>
 
 <div>
-  <p>Name: <%= @user.name %></p>
-  <p>Email: <%= @user.email %></p>
+<span class="flex flex-row justify-evenly">
+  <p>Hi <%= @user.name %>, this is your portfolio</p>
   <p>Total Portfolio Value: £<%= :erlang.float_to_binary(@total_portfolio_value, [decimals: 2]) %></p>
-<table>
-  <thead>
+  </span>
+<table class="w-full border-collapse border border-gray-400 my-5">
+  <thead class="bg-blue-500">
     <tr>
-      <th>Coin</th>
-      <th>Amount</th>
-      <th>Symbol</th>
+      <th>#</th>
+      <th class="px-4 py-2 text-left text-white">Coin</th>
+      <th class="px-4 py-2 text-left text-white">Amount</th>
+      <th class="px-4 py-2 text-left text-white">Symbol</th>
     </tr>
   </thead>
-  <tbody>
-    <%= for crypto <- @user.cryptos do %>
+  <tbody class="divide-y divide-gray-200">
+    <%= for {crypto, index} <- Enum.with_index(@user.cryptos) do %>
       <tr>
-        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.coin %></a></td>
-        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= if crypto.symbol == "GBP" do :erlang.float_to_binary(crypto.amount, [decimals: 2]) else :erlang.float_to_binary(crypto.amount, [decimals: 8]) end%></a></td>
-        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.symbol %></a></td>
+        <td class="px-4 py-2"><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}> <%= index + 1 %> </a></td>
+        <td><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"} class="flex items-center px-4 py-2" >
+          <img src={
+            if crypto.symbol == "GBP" do
+            "https://banner2.cleanpng.com/20180329/svw/kisspng-pound-sterling-pound-sign-computer-icons-banknote-finance-5abc92b6055fc2.317561041522307766022.jpg"
+            else
+            "https://www.cryptocompare.com/#{@full_img_data[crypto.symbol]["ImageUrl"]}"
+            end} class="w-5 l-5 mr-2"/>
+          <%= crypto.coin %>
+        </a></td>
+        <td class="px-4 py-2"><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= if crypto.symbol == "GBP" do :erlang.float_to_binary(crypto.amount, [decimals: 2]) else :erlang.float_to_binary(crypto.amount, [decimals: 8]) end%></a></td>
+        <td class="px-4 py-2"><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.symbol %></a></td>
       </tr>
     <% end %>
   </tbody>
@@ -31,6 +41,6 @@
 
 </section>
 
-<section>
-  <a href= {"/reset/#{@user.id}"}><.button>Reset</.button></a>
+<section class="flex items-center justify-center my-10 mx-0">
+  <a href= {"/reset/#{@user.id}"}><.button class="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full mr-2">Reset</.button></a>
 </section>

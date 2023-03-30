@@ -10,16 +10,29 @@ defmodule CryptoTradingSimulatorWeb.SignUpLive do
   def render(assigns) do
     ~H"""
 
-    <.form for={@form} phx-submit="sign_up" >
-        <h3>Name</h3>
-        <.input type="text" field={@form[:name]} />
-        <h3>Email</h3>
-        <.input type="email" field={@form[:email]} />
-        <.button type="submit">Sign Up</.button>
-        <.button phx-click="login_page">Already have an account?</.button>
-        <%= @error_message %>
-    </.form>
+      <div class="flex justify-center" style="margin: 20%;" >
+          <.form for={@form} phx-submit="sign_up" >
+              <h1 class="text-5xl mb-20">Sign up & start Trading!</h1>
+              <h3>Name</h3>
+                <.input type="text" field={@form[:name]} />
+              <h3>Email</h3>
+                <.input type="email" field={@form[:email]} />
+              <div class="flex items-center">
+                <.button style="margin: 2%;" class="bg-blue-500
+                hover:bg-blue-700 text-white
+                font-bold py-2 px-4
+                  rounded-full" type="submit">Sign Up</.button>
 
+                <.button
+                class="bg-gray-400
+                hover:bg-gray-600
+                  text-white font-bold
+                  py-2 px-4
+                  rounded-full mr-2" style="margin: 2%;" phx-click="login_page">Already have an account?</.button>
+                <p class="text-red-500"><%= @error_message %></p>
+              </div>
+          </.form>
+      </div>
     """
   end
 

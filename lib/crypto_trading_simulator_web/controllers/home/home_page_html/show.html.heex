@@ -1,7 +1,33 @@
+<div class="flex justify-end">
+<a href= {"/login"}><.button
+  class="
+    bg-gray-400 hover:bg-gray-600
+    dark:bg-blue-400
+    dark:bg-blue-700
+    text-white font-bold py-2 px-4 rounded-full mr-2"
+>Log Out</.button></a>
+
+<a href= {"/portfolio/#{@user_id}"}><.button
+  class="
+    bg-blue-500 hover:bg-blue-700
+    text-white font-bold py-2 px-4 rounded-full"
+>View Portfolio</.button></a>
+</div>
 <section>
-<form id="search-form" action={"/home/#{@user_id}/coinview/"} method="get">
-  <input id="search-input" type="text" placeholder="Enter crypto symbol">
-  <button type="submit">Search</button>
+
+
+
+<form id="search-form" action={"/home/#{@user_id}/coinview/"} method="get" class="flex items-center justify-center my-10 mx-0">
+  <input id="search-input" type="text" placeholder="Enter crypto symbol"
+    class="
+      py-2 px-4
+      rounded-full
+      w-full
+      md:w-96
+      dark:bg-gray-300 dark:focus:bg-gray-800 dark:placeholder-gray-900 dark:focus:placeholder-gray-200
+      bg-gray-200
+      focus:outline-none focus:bg-white focus:shadow-outline">
+  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-2">Search</button>
 </form>
 
 <script>
@@ -16,31 +42,31 @@
     form.submit();
   });
 </script>
-<a href= {"/login"}><.button>Log Out</.button></a>
-<a href= {"/portfolio/#{@user_id}"}><.button>View Portfolio</.button></a>
-  <h1>Top Cryptocurrencies by Total Volume</h1>
 
-  <table>
-    <thead>
+
+  <h1 class="flex items-center justify-center mb-5 text-lg">Top Cryptocurrencies by Total Volume</h1>
+
+  <table class="w-full border border-gray-400">
+    <thead class="bg-blue-500" >
       <tr>
-        <th></th>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Symbol</th>
-        <th>Price (GBP)</th>
-        <th>Total Volume (24h)</th>
+        <th class="border px-4 py-2 text-left text-white"><h2>Rank</h2></th>
+        <th class="border px-4 py-2 text-left text-white">Name</th>
+        <th class="border px-4 py-2 text-left text-white">Price (GBP)</th>
+        <th class="border px-4 py-2 text-left text-white">Total Volume (24h)</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="divide-y divide-gray-200">
       <%= for {coin, index} <- Enum.with_index(@data["Data"]) do %>
 
           <tr>
-            <td><img/></td>
-            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= index + 1 %></a></td>
-            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["CoinInfo"]["FullName"] %></a></td>
-            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["CoinInfo"]["Name"] %></a></td>
-            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["DISPLAY"]["GBP"]["PRICE"] %></a></td>
-            <td><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["DISPLAY"]["GBP"]["TOTALVOLUME24HTO"] %></a></td>
+            <td class="px-4 py-2"><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= index + 1 %></a></td>
+            <td class=" flex px-4 py-3 space-x-4"><a class="flex flex-row" href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}>
+              <img class="w-6 l-6" src={"https://www.cryptocompare.com/#{@full_img_data[coin["CoinInfo"]["Name"]]["ImageUrl"]}"} />
+              <p> <%= coin["CoinInfo"]["FullName"] %> </p>
+              <span class="ml-2"><%= " #{coin["CoinInfo"]["Name"]}" %></span>
+            </a></td>
+            <td class="px-4 py-2"><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["DISPLAY"]["GBP"]["PRICE"] %></a></td>
+            <td class="px-4 py-2"><a href= {"/home/#{@user_id}/coinview/#{coin["CoinInfo"]["Name"]}"}><%= coin["DISPLAY"]["GBP"]["TOTALVOLUME24HTO"] %></a></td>
 
          </tr>
 
@@ -53,13 +79,14 @@
 
 <section class="News">
   <%= for news_item <- Enum.take(@news_data, 5) do %>
-  <a href= {news_item["url"]}><div style="border-width: 1px; border-color: #505050; margin: 5% 0;">
+  <a href= {news_item["url"]}>
+  <div class="border-2 border-gray-500 p-10 my-10 mx-0 rounded-lg">
     <div style="display: flex; align-items: center; justify-content: space-between;">
-
       <h2 style="max-width: 80%;"><strong><%= news_item["title"] %></strong></h2>
       <img src={news_item["source_info"]["img"]}  style="max-width: 20%; height: 25px;"/>
     </div>
-    <h2 style="color: #505050;"><small>#<%= news_item["tags"] %></small></h2>
+    <%!-- under here !!! --%>
+    <h2 class="text-gray-500 dark:text-gray-300"><small>#<%= news_item["tags"] %></small></h2>
     <img src={news_item["imageurl"]}  style="width: 80px; height: 80px;"/>
     <p><%= news_item["body"] %></p>
   </div></a>
