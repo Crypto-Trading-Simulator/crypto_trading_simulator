@@ -1,6 +1,5 @@
 defmodule CryptoTradingSimulatorWeb.BuyLive do
   use CryptoTradingSimulatorWeb, :live_view
-  alias ElixirLS.LanguageServer.Experimental.SourceFile.Conversions
   alias CryptoTradingSimulator.{Repo, User, Crypto}
   require Logger
 
