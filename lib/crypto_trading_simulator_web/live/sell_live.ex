@@ -8,12 +8,12 @@ defmodule CryptoTradingSimulatorWeb.SellLive do
     crypto_price = elem(Enum.at(Poison.decode!(response.body), 0), 1)
 
     wallet = case Repo.get_by(Crypto, [user_id: id, symbol: symbol]) do
-      nil -> 0
+      nil -> 0.00
       result -> result.amount
     end
 
     pound_wallet = case Repo.get_by(Crypto, [user_id: id, symbol: "GBP"]) do
-      nil -> 0
+      nil -> 0.00
       result -> result.amount
     end
 
