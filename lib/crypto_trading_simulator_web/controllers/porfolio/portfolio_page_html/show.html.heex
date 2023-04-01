@@ -5,7 +5,7 @@
 <div>
 <span class="flex flex-row justify-evenly">
   <p>Hi <%= @user.name %>, this is your portfolio</p>
-  <p>Total Portfolio Value: £<%= :erlang.float_to_binary(@total_portfolio_value, [decimals: 2]) %></p>
+  <p>Total Portfolio Value: £<%= :erlang.float_to_binary(@total_portfolio_value, [decimals: 2]) || 0.00 %></p>
   </span>
 <table class="w-full border-collapse border border-gray-400 my-5">
   <thead class="bg-blue-500">
@@ -29,7 +29,7 @@
             end} class="w-5 l-5 mr-2"/>
           <%= crypto.coin %>
         </a></td>
-        <td class="px-4 py-2"><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= if crypto.symbol == "GBP" do :erlang.float_to_binary(crypto.amount, [decimals: 2]) else :erlang.float_to_binary(crypto.amount, [decimals: 8]) end%></a></td>
+        <td class="px-4 py-2"><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= if crypto.symbol == "GBP" do "£#{:erlang.float_to_binary(crypto.amount, [decimals: 2])}" else :erlang.float_to_binary(crypto.amount, [decimals: 8]) end%></a></td>
         <td class="px-4 py-2"><a href= {"/home/#{@user.id}/coinview/#{crypto.symbol}"}><%= crypto.symbol %></a></td>
       </tr>
     <% end %>
