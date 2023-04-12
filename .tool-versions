@@ -1,0 +1,6 @@
+elixir 1.14.2-otp-25
+erlang 25.1.2
+nodejs 16.15.0
+yarn 1.22.19
+anonymiser 0.1.14
+build_pipeline 0.0.13
